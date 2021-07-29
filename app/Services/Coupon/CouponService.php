@@ -81,8 +81,8 @@ class CouponService
             }
         }
 
-        $coupon->status = 'unavailable';
-        $coupon->save();
+        // $coupon->status = 'unavailable';
+        // $coupon->save();
 
         return [
             'coupon_accepted' => $ruleSuccess ? true : false,
@@ -111,6 +111,24 @@ class CouponService
                 $percentageTotalAmount = $cartTotal - $cartDeduction;
 
                 $cartTotal = $fixedTotalAmount > $percentageTotalAmount ? $fixedTotalAmount : $percentageTotalAmount;
+            }
+            break;
+
+            case 'mixed': {
+                $fixedTotalAmount = $cartTotal - $discount->discountAmount;
+
+                $cartDeduction = ($discount->discountAmount / 100) * $cartTotal;
+                $percentageTotalAmount = $cartTotal - $cartDeduction;
+
+                $cartTotal = $fixedTotalAmount > $percentageTotalAmount ? $fixedTotalAmount : $percentageTotalAmount;
+            }
+            break;
+
+            case 'rejected': {
+                $fixedTotalAmount = $cartTotal - $discount->discountAmount;
+
+                $cartDeduction = ($discount->discountAmount / 100) * $fixedTotalAmount;
+                $cartTotal = $cartTotal - $cartDeduction;
             }
             break;
 
