@@ -94,8 +94,14 @@ export default {
                 cartTotalNumberOfItems: this.items.length
             }
 
-        const result = await axios.post('/api/process-coupon', data);
-        console.log(result);
+            axios.post('/api/process-coupon', data).then(response => {
+                if (response.status === 200) {
+                    this.totalAmount = result.data.cartTotalAmount;
+                    return Vue.$toast.success('Coupon is valid, the total amount has been updated');
+                }
+            }).catch(error => {
+                return Vue.$toast.error('Coupon is invalid');
+            });
         }
     }
 }

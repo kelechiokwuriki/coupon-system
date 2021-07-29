@@ -23,6 +23,14 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('checkout-component', require('./components/Checkout.vue').default);
 
 
+import Vue from 'vue';
+import VueToast from 'vue-toast-notification';
+// Import one of the available themes
+//import 'vue-toast-notification/dist/theme-default.css';
+import 'vue-toast-notification/dist/theme-sugar.css';
+
+Vue.use(VueToast);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

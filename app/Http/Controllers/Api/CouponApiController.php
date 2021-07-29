@@ -23,7 +23,7 @@ class CouponApiController extends Controller
             return response()->json($response, 200);
         } catch (\Exception $e) {
             Log::error('Unable to process coupon: ' . $e->getMessage());
-            return response()->json(['error' => 'Unable to process coupon'], 500);
+            return response()->json(['error' => 'Unable to process coupon'], 400);
         }
     }
 }
