@@ -49,12 +49,17 @@ class CouponService
 
         switch ($whenToApplyRule) {
             case 'before': { //before discount
+                Log::debug("message");
+
                 if ($this->amountComparator($cartTotalAmount, $totalAmountLimit, $ruleType)) {
                     $ruleSuccess = true;
                 }
             }
+            break;
 
             case 'after': {
+                Log::debug("dddmessage");
+
                 // apply discount
                 $newTotalAfterDiscountApplied = $this->applyDiscount($discount, $cartTotalAmount);
 
@@ -62,15 +67,20 @@ class CouponService
                     $ruleSuccess = true;
                 }
             }
+            break;
+
+            default:
+                throw new Exception('Unrecognied time to apply rule. Should be before or after discount.');
         }
 
-        // process cart amount rule last.
-        if ($cartTotalNumberOfItems >= $cartAmountLimit) {
-            $ruleSuccess = true;
-        } else {
-            throw new Exception('Coupon code did not pass rule!!');
+        if ($cartAmountLimit !== NULL) {
+            // process cart amount rule last.
+            if ($cartTotalNumberOfItems >= $cartAmountLimit) {
+                $ruleSuccess = true;
+            } else {
+                throw new Exception('Coupon code did not pass rule!!');
+            }
         }
-
 
         // $coupon->status = 'unavailable';
         // $coupon->save();
@@ -82,8 +92,6 @@ class CouponService
 
     private function applyDiscount(Discount $discount, $cartTotal)
     {
-        $cartTotal -= $discount->discountAmount;
-
         switch ($discount->type) {
             case 'fixed_amount': {
                 $cartTotal -= $discount->discountAmount;
