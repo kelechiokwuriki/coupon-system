@@ -15,7 +15,7 @@ class CreateDiscountsTable extends Migration
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
-            $table->string('type'); //fixed amount off, percent off or mixed
+            $table->string('type'); //Can be fixed_amount or percent_off or mixed
             $table->double('discountAmount'); //double for 64 bits. Better than  float.
             $table->timestamps();
         });

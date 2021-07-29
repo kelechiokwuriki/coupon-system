@@ -16,9 +16,9 @@ class CreateRulesTable extends Migration
         Schema::create('rules', function (Blueprint $table) {
             $table->id();
             $table->string('rule_type'); // can be '>', '<', '='
-            $table->double('limitAmount'); //e.g 50
+            $table->double('amount_limit'); //e.g 50
             $table->string('when_to_apply_rule'); // can be before or Discount or after
-            $table->double('itemAmountLimit'); //contain at least 1 item
+            $table->unsignedBigInteger('cart_amount_limit'); //contain at least 1 item
             $table->unsignedBigInteger('coupon_id');
             $table->timestamps();
         });
