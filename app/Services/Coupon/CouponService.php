@@ -31,7 +31,6 @@ class CouponService
         $rule = $this->ruleRepository->where('coupon_id', $couponId)->first();
         $discount = $this->discountRepository->where('coupon_id', $couponId)->first();
 
-
         $ruleType = $rule->rule_type;
         $totalAmountLimit = $rule->amount_limit;
         $cartAmountLimit = $rule->cart_amount_limit;
@@ -47,6 +46,8 @@ class CouponService
             case 'before': { //before discount
                 if ($this->amountComparator($cartTotalAmount, $totalAmountLimit, $ruleType)) {
                     $ruleSuccess = true;
+                } else {
+                    throw new Exception('Coupon code did not pass rule');
                 }
             }
 
@@ -56,14 +57,22 @@ class CouponService
 
                 if ($this->amountComparator($newTotalAfterDiscountApplied, $totalAmountLimit, $ruleType)) {
                     $ruleSuccess = true;
+                } else {
+                    throw new Exception('Coupon code did not pass rule');
                 }
+
             }
         }
 
         // process cart amount rule last.
         if ($cartTotalNumberOfItems >= $cartAmountLimit) {
             $ruleSuccess = true;
+        } else {
+            throw new Exception('Coupon code did not pass rule');
         }
+
+        $coupon->status = 'unavailable';
+        $coupon->save();
 
         return [
             'coupon_accepted' => $ruleSuccess ? true : false

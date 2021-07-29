@@ -3,10 +3,22 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Services\CouponService;
 use Illuminate\Http\Request;
 
 class CouponApiController extends Controller
 {
+    protected $couponService;
+
+    public function __construct(CouponService $couponService)
+    {
+        $this->couponService = $couponService;
+    }
+
+    public function processCoupon(Request $request)
+    {
+        return $this->couponService->processCoupon($request->all());
+    }
     /**
      * Display a listing of the resource.
      *
