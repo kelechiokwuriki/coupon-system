@@ -2064,12 +2064,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     }
-  } // computed: {
-  //     getTotalAmount: function() {
-  //         this.getTotalAmount();
-  //     }
-  // }
-
+  }
 });
 
 /***/ }),

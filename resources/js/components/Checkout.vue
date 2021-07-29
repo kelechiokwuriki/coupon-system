@@ -97,11 +97,6 @@ export default {
         const result = await axios.post('/api/process-coupon', data);
         console.log(result);
         }
-    },
-    // computed: {
-    //     getTotalAmount: function() {
-    //         this.getTotalAmount();
-    //     }
-    // }
+    }
 }
 </script>
