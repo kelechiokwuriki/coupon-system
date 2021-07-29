@@ -15,7 +15,7 @@
     </head>
     <body>
         <div id="app">
-            <coupon-component></coupon-component>
+            <checkout-component></checkout-component>
         </div>
 
         <script src="{{mix('js/app.js')}}"></script>
