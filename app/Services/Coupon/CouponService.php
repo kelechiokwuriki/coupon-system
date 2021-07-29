@@ -27,7 +27,7 @@ class CouponService
     {
         $coupon = $this->couponRepository->where('code', $couponData['code'])->first();
 
-        if (!$coupon) {
+        if (!$coupon || $coupon->status !== 'available') {
             throw new Exception('Coupon is not valid');
         }
 
@@ -51,8 +51,6 @@ class CouponService
             case 'before': { //before discount
                 if ($this->amountComparator($cartTotalAmount, $totalAmountLimit, $ruleType)) {
                     $ruleSuccess = true;
-                } else {
-                    throw new Exception('Coupon code did not pass rule');
                 }
             }
 
@@ -62,10 +60,7 @@ class CouponService
 
                 if ($this->amountComparator($newTotalAfterDiscountApplied, $totalAmountLimit, $ruleType)) {
                     $ruleSuccess = true;
-                } else {
-                    throw new Exception('Coupon code did not pass rule');
                 }
-
             }
         }
 
@@ -73,11 +68,12 @@ class CouponService
         if ($cartTotalNumberOfItems >= $cartAmountLimit) {
             $ruleSuccess = true;
         } else {
-            throw new Exception('Coupon code did not pass rule');
+            throw new Exception('Coupon code did not pass rule!!');
         }
 
-        $coupon->status = 'unavailable';
-        $coupon->save();
+
+        // $coupon->status = 'unavailable';
+        // $coupon->save();
 
         return [
             'coupon_accepted' => $ruleSuccess ? true : false
@@ -86,6 +82,8 @@ class CouponService
 
     private function applyDiscount(Discount $discount, $cartTotal)
     {
+        $cartTotal -= $discount->discountAmount;
+
         switch ($discount->type) {
             case 'fixed_amount': {
                 $cartTotal -= $discount->discountAmount;
@@ -95,6 +93,15 @@ class CouponService
             case 'percent_off': {
                 $cartDeduction = ($discount->discountAmount / 100) * $cartTotal;
                 $cartTotal -= $cartDeduction;
+            }
+
+            case 'mixed': {
+                $fixedTotalAmount = $cartTotal - $discount->discountAmount;
+
+                $cartDeduction = ($discount->discountAmount / 100) * $cartTotal;
+                $percentageTotalAmount = $cartTotal - $cartDeduction;
+
+                $cartTotal = $fixedTotalAmount > $percentageTotalAmount ? $fixedTotalAmount : $percentageTotalAmount;
             }
         }
 
@@ -109,6 +116,9 @@ class CouponService
             case '>=': {
                 if ($amount >= $compareTo) {
                     $passCheck = true;
+                } else {
+                    throw new Exception('Coupon code did not pass rule. Cart total amount is not greater
+                    than or equals to set cart total amount rule.');
                 }
             }
             break;
@@ -116,6 +126,9 @@ class CouponService
             case '<=': {
                 if ($amount <= $compareTo) {
                     $passCheck = true;
+                } else {
+                    throw new Exception('Coupon code did not pass rule. Cart total amount is not less than
+                    than or equals to set cart total amount rule.');
                 }
             }
             break;

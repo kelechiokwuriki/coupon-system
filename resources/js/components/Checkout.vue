@@ -18,7 +18,7 @@
                                                 <div class="card mb-4" style="width: 18rem;">
                                                 <div class="card-body">
                                                     <h5 class="card-title">{{ item.name }}</h5>
-                                                    <h6 class="card-subtitle mb-2 text-muted">${{item.price}}</h6>
+                                                    <h6 class="card-subtitle mb-2 text-muted">${{ item.price }}</h6>
                                                 </div>
                                             </div>
                                             </div>
@@ -37,15 +37,15 @@
                                                 Total Amount
                                             </div>
                                             <div class="col-sm-6">
-                                                ${{ getTotalAmount }}
+                                                ${{ totalAmount }}
                                             </div>
                                         </div>
                                         <form class="mt-4">
                                             <div class="form-group">
                                                 <label for="coupon-text">Enter coupon</label>
-                                                <input type="text" class="form-control" id="coupon-text" placeholder="e.g abcd">
+                                                <input type="text" class="form-control" v-model="couponCode" id="coupon-text" placeholder="e.g abcd">
                                             </div>
-                                            <button type="submit" class="btn btn-primary">Try coupon</button>
+                                            <button type="submit" class="btn btn-primary" @click="submitCoupon">Submit coupon</button>
                                             </form>
                                     </div>
                                 </div>
@@ -63,22 +63,45 @@
 export default {
     data() {
         return {
-            items: []
+            items: [],
+            couponCode: '',
+            totalAmount: 0.00
         }
     },
     mounted() {
         this.getItems();
     },
     methods: {
+        getTotalAmount() {
+            if (this.items.length) {
+                this.totalAmount = this.items.reduce((a, b) => {
+                    return a + b['price'];
+                }, 0);
+            }
+        },
         async getItems() {
             const items = await axios.get('/api/item');
             this.items = items.data;
+
+            this.getTotalAmount();
+        },
+        async submitCoupon(e) {
+            e.preventDefault();
+
+            const data = {
+                cartTotalAmount: this.totalAmount,
+                code: this.couponCode,
+                cartTotalNumberOfItems: this.items.length
+            }
+
+        const result = await axios.post('/api/process-coupon', data);
+        console.log(result);
         }
     },
-    computed: {
-        getTotalAmount: function() {
-            return 0.00;
-        }
-    }
+    // computed: {
+    //     getTotalAmount: function() {
+    //         this.getTotalAmount();
+    //     }
+    // }
 }
 </script>

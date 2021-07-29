@@ -1992,13 +1992,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      items: []
+      items: [],
+      couponCode: '',
+      totalAmount: 0.00
     };
   },
   mounted: function mounted() {
     this.getItems();
   },
   methods: {
+    getTotalAmount: function getTotalAmount() {
+      if (this.items.length) {
+        this.totalAmount = this.items.reduce(function (a, b) {
+          return a + b['price'];
+        }, 0);
+      }
+    },
     getItems: function getItems() {
       var _this = this;
 
@@ -2015,20 +2024,52 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 items = _context.sent;
                 _this.items = items.data;
 
-              case 4:
+                _this.getTotalAmount();
+
+              case 5:
               case "end":
                 return _context.stop();
             }
           }
         }, _callee);
       }))();
+    },
+    submitCoupon: function submitCoupon(e) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var data, result;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                e.preventDefault();
+                data = {
+                  cartTotalAmount: _this2.totalAmount,
+                  code: _this2.couponCode,
+                  cartTotalNumberOfItems: _this2.items.length
+                };
+                _context2.next = 4;
+                return axios.post('/api/process-coupon', data);
+
+              case 4:
+                result = _context2.sent;
+                console.log(result);
+
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     }
-  },
-  computed: {
-    getTotalAmount: function getTotalAmount() {
-      return 0.00;
-    }
-  }
+  } // computed: {
+  //     getTotalAmount: function() {
+  //         this.getTotalAmount();
+  //     }
+  // }
+
 });
 
 /***/ }),
@@ -38568,13 +38609,55 @@ var render = function() {
                       _c("div", { staticClass: "col-sm-6" }, [
                         _vm._v(
                           "\n                                            $" +
-                            _vm._s(_vm.getTotalAmount) +
+                            _vm._s(_vm.totalAmount) +
                             "\n                                        "
                         )
                       ])
                     ]),
                     _vm._v(" "),
-                    _vm._m(0)
+                    _c("form", { staticClass: "mt-4" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "coupon-text" } }, [
+                          _vm._v("Enter coupon")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.couponCode,
+                              expression: "couponCode"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "coupon-text",
+                            placeholder: "e.g abcd"
+                          },
+                          domProps: { value: _vm.couponCode },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.couponCode = $event.target.value
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: { type: "submit" },
+                          on: { click: _vm.submitCoupon }
+                        },
+                        [_vm._v("Submit coupon")]
+                      )
+                    ])
                   ])
                 ])
               ])
@@ -38585,31 +38668,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("form", { staticClass: "mt-4" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "coupon-text" } }, [
-          _vm._v("Enter coupon")
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { type: "text", id: "coupon-text", placeholder: "e.g abcd" }
-        })
-      ]),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [_vm._v("Try coupon")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
