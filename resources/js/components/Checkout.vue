@@ -17,11 +17,8 @@
                                             <div class="col-sm-6" v-for="item in items" v-bind:key="item.id">
                                                 <div class="card mb-4" style="width: 18rem;">
                                                 <div class="card-body">
-                                                    <h5 class="card-title">Card title</h5>
-                                                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                                    <a href="#" class="card-link">Card link</a>
-                                                    <a href="#" class="card-link">Another link</a>
+                                                    <h5 class="card-title">{{ item.name }}</h5>
+                                                    <h6 class="card-subtitle mb-2 text-muted">${{item.price}}</h6>
                                                 </div>
                                             </div>
                                             </div>
@@ -40,7 +37,7 @@
                                                 Total Amount
                                             </div>
                                             <div class="col-sm-6">
-                                                $100
+                                                ${{ getTotalAmount }}
                                             </div>
                                         </div>
                                         <form class="mt-4">
@@ -76,6 +73,11 @@ export default {
         async getItems() {
             const items = await axios.get('/api/item');
             this.items = items.data;
+        }
+    },
+    computed: {
+        getTotalAmount: function() {
+            return 0.00;
         }
     }
 }

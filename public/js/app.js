@@ -1989,9 +1989,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2025,6 +2022,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
+    }
+  },
+  computed: {
+    getTotalAmount: function getTotalAmount() {
+      return 0.00;
     }
   }
 });
@@ -38514,7 +38516,31 @@ var render = function() {
                         return _c(
                           "div",
                           { key: item.id, staticClass: "col-sm-6" },
-                          [_vm._m(0, true)]
+                          [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "card mb-4",
+                                staticStyle: { width: "18rem" }
+                              },
+                              [
+                                _c("div", { staticClass: "card-body" }, [
+                                  _c("h5", { staticClass: "card-title" }, [
+                                    _vm._v(_vm._s(item.name))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "h6",
+                                    {
+                                      staticClass:
+                                        "card-subtitle mb-2 text-muted"
+                                    },
+                                    [_vm._v("$" + _vm._s(item.price))]
+                                  )
+                                ])
+                              ]
+                            )
+                          ]
                         )
                       }),
                       0
@@ -38523,7 +38549,35 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(1)
+              _c("div", { staticClass: "col-sm-4" }, [
+                _c("div", { staticClass: "card" }, [
+                  _c("div", { staticClass: "card-header" }, [
+                    _vm._v(
+                      "\n                                    Checkout Details\n                                "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-sm-6" }, [
+                        _vm._v(
+                          "\n                                            Total Amount\n                                        "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-6" }, [
+                        _vm._v(
+                          "\n                                            $" +
+                            _vm._s(_vm.getTotalAmount) +
+                            "\n                                        "
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(0)
+                  ])
+                ])
+              ])
             ])
           ])
         ])
@@ -38536,85 +38590,23 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "card mb-4", staticStyle: { width: "18rem" } },
-      [
-        _c("div", { staticClass: "card-body" }, [
-          _c("h5", { staticClass: "card-title" }, [_vm._v("Card title")]),
-          _vm._v(" "),
-          _c("h6", { staticClass: "card-subtitle mb-2 text-muted" }, [
-            _vm._v("Card subtitle")
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "card-text" }, [
-            _vm._v(
-              "Some quick example text to build on the card title and make up the bulk of the card's content."
-            )
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
-            _vm._v("Card link")
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
-            _vm._v("Another link")
-          ])
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-sm-4" }, [
-      _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-header" }, [
-          _vm._v(
-            "\n                                    Checkout Details\n                                "
-          )
+    return _c("form", { staticClass: "mt-4" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { attrs: { for: "coupon-text" } }, [
+          _vm._v("Enter coupon")
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-sm-6" }, [
-              _vm._v(
-                "\n                                            Total Amount\n                                        "
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-6" }, [
-              _vm._v(
-                "\n                                            $100\n                                        "
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("form", { staticClass: "mt-4" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "coupon-text" } }, [
-                _vm._v("Enter coupon")
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  id: "coupon-text",
-                  placeholder: "e.g abcd"
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c(
-              "button",
-              { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-              [_vm._v("Try coupon")]
-            )
-          ])
-        ])
-      ])
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "text", id: "coupon-text", placeholder: "e.g abcd" }
+        })
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_vm._v("Try coupon")]
+      )
     ])
   }
 ]
