@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Services\CouponService;
+use App\Services\Coupon\CouponService;
 use Illuminate\Http\Request;
 
 class CouponApiController extends Controller

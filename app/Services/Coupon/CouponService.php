@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Coupon;
 
-use App\Coupon;
 use App\Discount;
-use App\Repositories\CouponRepository;
-use App\Repositories\RuleRepository;
-use App\Repositories\DiscountRepository;
+use App\Repositories\Coupon\CouponRepository;
+use App\Repositories\Rule\RuleRepository;
+use App\Repositories\Discount\DiscountRepository;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 class CouponService
 {
@@ -26,6 +26,11 @@ class CouponService
     public function processCoupon(array $couponData)
     {
         $coupon = $this->couponRepository->where('code', $couponData['code'])->first();
+
+        if (!$coupon) {
+            throw new Exception('Coupon is not valid');
+        }
+
         $couponId = $coupon->id;
 
         $rule = $this->ruleRepository->where('coupon_id', $couponId)->first();

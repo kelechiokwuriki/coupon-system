@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Coupon;
 
 use App\Coupon;
-use App\Repositories\Base\BaseRepository;
+use App\Repositories\BaseRepository;
 
 class CouponRepository extends BaseRepository
 {

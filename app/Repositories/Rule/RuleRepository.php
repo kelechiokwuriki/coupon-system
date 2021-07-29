@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Rule;
 
-use App\Repositories\Base\BaseRepository;
+use App\Repositories\BaseRepository;
 use App\Rule;
 
 class RuleRepository extends BaseRepository

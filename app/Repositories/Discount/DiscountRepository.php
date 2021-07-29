@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Discount;
 
 use App\Discount;
-use App\Repositories\Base\BaseRepository;
+use App\Repositories\BaseRepository;
 
 class DiscountRepository extends BaseRepository
 {

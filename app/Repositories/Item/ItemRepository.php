@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Item;
-use App\Repositories\Base\BaseRepository;
+use App\Repositories\BaseRepository;
 
 class ItemRepository extends BaseRepository
 {
