@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Item;
 
 use App\Item;
 use App\Repositories\BaseRepository;
