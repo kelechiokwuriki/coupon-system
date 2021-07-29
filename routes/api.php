@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CouponApiController;
+use App\Http\Controllers\Api\ItemApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +21,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::post('/process-coupon', [CouponApiController::class, 'processCoupon']);
+Route::post('/process-coupon', 'Api\CouponApiController@processCoupon');
+Route::resource('item', 'Api\ItemApiController');
+

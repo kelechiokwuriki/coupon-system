@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Services\Item\ItemService;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ItemApiController extends Controller
 {
@@ -21,6 +21,12 @@ class ItemApiController extends Controller
      */
     public function index()
     {
-        return $this->itemService->getAllItems();
+        try {
+            $items = $this->itemService->getAllItems();
+            return response()->json($items, 200);
+        } catch (\Exception $e) {
+            Log::error("Unable to get all items: " . $e->getMessage());
+            return response()->json(['error' => 'Unable to get all items'], 500);
+        }
     }
 }
