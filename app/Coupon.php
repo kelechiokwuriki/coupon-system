@@ -11,13 +11,13 @@ class Coupon extends Model
 {
     protected $guarded = [];
 
-    public function rules()
+    public function rule()
     {
-        return $this->hasMany(Rule::class);
+        return $this->hasOne(Rule::class);
     }
 
-    public function discounts()
+    public function discount()
     {
-        return $this->hasMany(Discount::class);
+        return $this->hasOne(Discount::class);
     }
 }
