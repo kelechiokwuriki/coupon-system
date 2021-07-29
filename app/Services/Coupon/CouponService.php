@@ -81,8 +81,8 @@ class CouponService
             }
         }
 
-        // $coupon->status = 'unavailable';
-        // $coupon->save();
+        $coupon->status = 'unavailable';
+        $coupon->save();
 
         return [
             'coupon_accepted' => $ruleSuccess ? true : false,
