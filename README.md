@@ -8,6 +8,7 @@ Supports rule and discount set on the database.
 2. Navigate to app directory.
 3. Run the commands
    -  "composer install"
+   -  "npm run production"
    -  "php artisan serve"
    -  nagivate to the url on your browser"
 
