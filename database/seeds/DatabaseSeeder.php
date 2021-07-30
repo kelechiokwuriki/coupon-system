@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
         Rule::create([
             'rule_type' => '>=',
             'amount_limit' => '50',
-            'when_to_apply' => 'before',
+            'when_to_apply_rule' => 'before',
             'cart_amount_limit' => 1,
             'coupon_id' => $coupedFixedCreated->id
         ]);
@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
         Rule::create([
             'rule_type' => '>=',
             'amount_limit' => '100',
-            'when_to_apply' => 'before',
+            'when_to_apply_rule' => 'before',
             'cart_amount_limit' => 2,
             'coupon_id' => $couponPercent->id
         ]);
@@ -54,7 +54,7 @@ class DatabaseSeeder extends Seeder
         Rule::create([
             'rule_type' => '>=',
             'amount_limit' => '200',
-            'when_to_apply' => 'before',
+            'when_to_apply_rule' => 'before',
             'cart_amount_limit' => 3,
             'coupon_id' => $couponMixed->id
         ]);
@@ -62,7 +62,7 @@ class DatabaseSeeder extends Seeder
         Rule::create([
             'rule_type' => '>=',
             'amount_limit' => '1000',
-            'when_to_apply' => 'before',
+            'when_to_apply_rule' => 'before',
             'cart_amount_limit' => null,
             'coupon_id' => $couponRejected->id
         ]);
