@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $couponMixed = Coupon::create([
-            'code' => 'PERCENT10',
+            'code' => 'MIXED10',
             'status' => 'available',
         ]);
 
