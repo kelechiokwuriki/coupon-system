@@ -10,7 +10,7 @@ Supports rule and discount set on the database.
    -  "composer install"
    -  "cp .env.example .env"
    -  "php artisan migrate --seed"
-   -  "npm run production"
+   -  "npm run watch"
    -  "php artisan serve"
    -  nagivate to the url on your browser"
 
