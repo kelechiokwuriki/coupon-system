@@ -9,6 +9,7 @@ Supports rule and discount set on the database.
 3. Run the commands
    -  "composer install"
    -  "npm run production"
+   -  "php artisan db:seed"
    -  "php artisan serve"
    -  nagivate to the url on your browser"
 
