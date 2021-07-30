@@ -8,8 +8,9 @@ Supports rule and discount set on the database.
 2. Navigate to app directory.
 3. Run the commands
    -  "composer install"
+   -  "cp .env.example .env"
+   -  "php artisan migrate --seed"
    -  "npm run production"
-   -  "php artisan db:seed"
    -  "php artisan serve"
    -  nagivate to the url on your browser"
 
